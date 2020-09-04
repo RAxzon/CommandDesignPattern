@@ -16,13 +16,19 @@ namespace CommandDesignPattern
         public void IncreasePrice(int amount)
         {
             Price += amount;
-            Console.WriteLine($"The price for {Name} has changed to +{amount}$");
+            Console.WriteLine($"The price for {Name} has increased with {amount}$");
         }
 
-        public void DecreasePrice(int amount)
+        public bool DecreasePrice(int amount)
         {
-            Price += amount;
-            Console.WriteLine($"The price for {Name} has changed to -{amount}$");
+            if (amount < Price)
+            {
+                Price -= amount;
+                Console.WriteLine($"The price for {Name} has decreased with {amount}$");
+                return true;
+            }
+            
+            throw new Exception("Price cannot be less than 0");
         }
 
         public override string ToString() => $"Current price for the {Name} product is {Price}$";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CommandDesignPattern
@@ -15,6 +16,14 @@ namespace CommandDesignPattern
         }
 
         public void SetCommand(ICommand command) => _command = command;
+
+        public void UndoActions()
+        {
+            foreach (var command in Enumerable.Reverse(_commands))
+            {
+                command.UndoAction();
+            }
+        }
 
         public void Invoke()
         {

@@ -10,8 +10,10 @@ namespace CommandDesignPattern
             var modifyPrice = new ModifyPrice();
             var product = new Product("Phone", 500);
 
-            Execute(product, modifyPrice, new ProductCommand(product, PriceAction.Increase, 200));
+            Execute(product, modifyPrice, new ProductCommand(product, PriceAction.Decrease, 200));
+            Console.WriteLine(product);
 
+            modifyPrice.UndoActions();
             Console.WriteLine(product);
 
             Console.ReadLine();

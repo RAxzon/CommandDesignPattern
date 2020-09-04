@@ -11,6 +11,8 @@ namespace CommandDesignPattern
         private readonly PriceAction _priceAction;
         private readonly int _amount;
 
+        public bool IsCommandExecuted { get; private set; }
+
         public ProductCommand(Product product, PriceAction priceAction, int amount)
         {
             _product = product;
@@ -23,10 +25,30 @@ namespace CommandDesignPattern
             if (_priceAction == PriceAction.Increase)
             {
                 _product.IncreasePrice(_amount);
+                IsCommandExecuted = true;
             }
             else
             {
                 _product.DecreasePrice(_amount);
+                IsCommandExecuted = true;
+            }
+        }
+
+        public void UndoAction()
+        {
+
+            if (!IsCommandExecuted)
+            {
+                return;
+            }
+
+            if (_priceAction == PriceAction.Increase)
+            {
+                _product.DecreasePrice(_amount);
+            }
+            else
+            {
+                _product.IncreasePrice(_amount);
             }
         }
     }
